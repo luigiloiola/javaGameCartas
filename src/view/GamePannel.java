@@ -28,14 +28,13 @@ public class GamePannel extends JPanel implements Runnable{
 
 
 
-    public GamePannel (Model model, KeyHandler keyH) {
+    public GamePannel (Model model) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.setFocusable(true);
         this.model = model;
-        this.keyH = keyH;
-        this.addKeyListener(keyH);
+        this.addKeyListener(KeyHandler.getInstance());
 
     }
 

@@ -11,8 +11,6 @@ import java.awt.event.KeyListener;
 public class Model implements Runnable {
 
     Thread modelThread;
-    public KeyHandler keyH1;
-    public KeyHandler2 keyH2;
 
 
     public double pseudoFPS = 200;
@@ -23,18 +21,11 @@ public class Model implements Runnable {
 
 
 
-    public Model(KeyHandler keyH1, KeyHandler2 keyH2) {
-        this.keyH1 = keyH1;
-        this.keyH2 = keyH2;
-    }
 
     public void startModelThread() {
         modelThread = new Thread(this);
         modelThread.start();
     }
-
-
-
 
     //game loop
     @Override
@@ -66,16 +57,16 @@ public class Model implements Runnable {
 
 
     public void update() {
-        if(keyH1.upPressed){
+        if(KeyHandler.getInstance().upPressed){
             playerY -= playerVelocity;
         }
-        if(keyH1.downPressed) {
+        if(KeyHandler.getInstance().downPressed) {
             playerY += playerVelocity;
         }
-        if(keyH1.leftPressed) {
+        if(KeyHandler.getInstance().leftPressed) {
             playerX -= playerVelocity;
         }
-        if(keyH1.rightPressed) {
+        if(KeyHandler.getInstance().rightPressed) {
             playerX += playerVelocity;
         }
     }

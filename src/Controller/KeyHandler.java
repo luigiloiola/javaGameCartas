@@ -5,9 +5,21 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
-
-
     public boolean upPressed, downPressed, leftPressed, rightPressed;
+    private static volatile KeyHandler INSTANCE = null;
+
+    private KeyHandler() {}
+
+    public static KeyHandler getInstance() {
+        if(INSTANCE == null) {
+            synchronized (KeyHandler.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new KeyHandler();
+                }
+            }
+        }
+        return INSTANCE;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {

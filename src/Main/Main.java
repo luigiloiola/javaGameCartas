@@ -14,14 +14,12 @@ public class Main {
         window.setResizable(false);
         window.setTitle("game");
 
-        KeyHandler keyH1 = new KeyHandler();
-        KeyHandler2 keyH2 = new KeyHandler2();
 
-        Model model = new Model(keyH1, keyH2);
+        Model model = new Model();
         model.startModelThread();
 
 
-        GamePannel gamePannel = new GamePannel(model, keyH1);
+        GamePannel gamePannel = new GamePannel(model);
         window.add(gamePannel);
         gamePannel.startViewThread();
 
