@@ -63,7 +63,7 @@ public class GamePannel extends JPanel implements Runnable{
                     remainingTime = 0;
                 }
                 Thread.sleep((long)remainingTime);
-
+                System.out.println("view" + " " + remainingTime);
                 nextPaintTime += paintInterval;
 
             } catch (InterruptedException e){

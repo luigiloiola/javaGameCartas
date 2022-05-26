@@ -65,7 +65,7 @@ public class Model implements Runnable {
                     remainingTime = 0;
                 }
                 Thread.sleep((long)remainingTime);
-
+                System.out.println("model" + " " + remainingTime);
                 nextPaintTime += paintInterval;
 
             } catch (InterruptedException e){
