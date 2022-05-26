@@ -5,14 +5,11 @@ import Model.Model;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 
 public class GamePannel extends JPanel implements Runnable{
 
     Thread viewThread;
-
-    Model model;
-
-    KeyHandler keyH;
 
     final double FPS = 144;
 
@@ -26,15 +23,16 @@ public class GamePannel extends JPanel implements Runnable{
     final int screenWidth = size * maxScreenCol;
     final int screenHeight = size * maxScreenRow;
 
+    KeyHandler keyH = new KeyHandler();
 
 
-    public GamePannel (Model model) {
+    public GamePannel () {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.setFocusable(true);
-        this.model = model;
-        this.addKeyListener(KeyHandler.getInstance());
+        this.addKeyListener(keyH);
+        startViewThread();
 
     }
 
@@ -64,7 +62,6 @@ public class GamePannel extends JPanel implements Runnable{
                 if(remainingTime < 0 ){
                     remainingTime = 0;
                 }
-                System.out.println(remainingTime);
                 Thread.sleep((long)remainingTime);
 
                 nextPaintTime += paintInterval;
@@ -87,7 +84,7 @@ public class GamePannel extends JPanel implements Runnable{
 
         g2.setColor(Color.WHITE);
 
-        g2.fillRect(model.playerX, model.playerY, size, size);
+        g2.fillRect(Model.getInstance().playerX, Model.getInstance().playerY, size, size);
 
 
 

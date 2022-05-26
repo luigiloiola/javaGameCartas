@@ -5,8 +5,11 @@ import Controller.KeyHandler2;
 import view.GamePannel;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
 import java.awt.*;
 import java.awt.event.KeyListener;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class Model implements Runnable {
 
@@ -18,13 +21,29 @@ public class Model implements Runnable {
     public int playerX;
     public int playerY;
     public double playerVelocity = 2;
+    public ArrayList<KeyHandler> keyHList;
 
+    private static volatile Model INSTANCE = null;
 
-
-
-    public void startModelThread() {
+    private Model() {
         modelThread = new Thread(this);
         modelThread.start();
+        keyHList = new ArrayList<>();
+    }
+
+    public static Model getInstance() {
+        if (INSTANCE == null) {
+            synchronized (Model.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new Model();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+
+    public void addKeyHandler(KeyHandler keyH) {
+        keyHList.add(keyH);
     }
 
     //game loop
@@ -57,17 +76,21 @@ public class Model implements Runnable {
 
 
     public void update() {
-        if(KeyHandler.getInstance().upPressed){
-            playerY -= playerVelocity;
-        }
-        if(KeyHandler.getInstance().downPressed) {
-            playerY += playerVelocity;
-        }
-        if(KeyHandler.getInstance().leftPressed) {
-            playerX -= playerVelocity;
-        }
-        if(KeyHandler.getInstance().rightPressed) {
-            playerX += playerVelocity;
+        if(keyHList.size() != 0) {
+            for(KeyHandler i: keyHList) {
+                if(i.upPressed){
+                    playerY -= playerVelocity;
+                }
+                if(i.downPressed) {
+                    playerY += playerVelocity;
+                }
+                if(i.leftPressed) {
+                    playerX -= playerVelocity;
+                }
+                if(i.rightPressed) {
+                    playerX += playerVelocity;
+                }
+            }
         }
     }
 }

@@ -15,13 +15,8 @@ public class Main {
         window.setTitle("game");
 
 
-        Model model = new Model();
-        model.startModelThread();
-
-
-        GamePannel gamePannel = new GamePannel(model);
+        GamePannel gamePannel = new GamePannel();
         window.add(gamePannel);
-        gamePannel.startViewThread();
 
         window.pack();
 
