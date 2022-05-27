@@ -1,14 +1,7 @@
 package Model;
 
 import Controller.KeyHandler;
-import Controller.KeyHandler2;
-import view.GamePannel;
 
-import javax.swing.*;
-import javax.swing.plaf.basic.BasicSplitPaneUI;
-import java.awt.*;
-import java.awt.event.KeyListener;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Model implements Runnable {
@@ -16,11 +9,8 @@ public class Model implements Runnable {
     Thread modelThread;
 
 
-    public double pseudoFPS = 200;
+    final double pseudoFPS = 200;
 
-    public int playerX;
-    public int playerY;
-    public double playerVelocity = 2;
     public ArrayList<KeyHandler> keyHList;
 
     private static volatile Model INSTANCE = null;
@@ -79,16 +69,16 @@ public class Model implements Runnable {
         if(keyHList.size() != 0) {
             for(KeyHandler i: keyHList) {
                 if(i.upPressed){
-                    playerY -= playerVelocity;
+                    i.player.posY -= i.player.velocity;
                 }
                 if(i.downPressed) {
-                    playerY += playerVelocity;
+                    i.player.posY += i.player.velocity;
                 }
                 if(i.leftPressed) {
-                    playerX -= playerVelocity;
+                    i.player.posX -= i.player.velocity;
                 }
                 if(i.rightPressed) {
-                    playerX += playerVelocity;
+                    i.player.posX += i.player.velocity;
                 }
             }
         }

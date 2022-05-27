@@ -1,8 +1,5 @@
 package Main;
 
-import Controller.KeyHandler;
-import Controller.KeyHandler2;
-import Model.Model;
 import view.GamePannel;
 
 import javax.swing.*;
@@ -24,6 +21,24 @@ public class Main {
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
+
+        JFrame window2 = new JFrame();
+        window2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window2.setResizable(false);
+        window2.setTitle("game");
+
+
+        GamePannel gamePannel2 = new GamePannel();
+        gamePannel2.FPS = 5;
+        window2.add(gamePannel2);
+
+        window2.pack();
+
+
+
+        window2.setLocationRelativeTo(null);
+        window2.setVisible(true);
+
 
     }
 }

@@ -11,7 +11,7 @@ public class GamePannel extends JPanel implements Runnable{
 
     Thread viewThread;
 
-    final double FPS = 144;
+    public double FPS = 144;
 
     final int originalSize = 16;
     final int scale = 3;
@@ -82,11 +82,15 @@ public class GamePannel extends JPanel implements Runnable{
 
         Graphics2D g2 = (Graphics2D)g;
 
-        g2.setColor(Color.WHITE);
+        for(int i = 0; i < Model.getInstance().keyHList.size(); i++) {
+            if(i == 0) {
+                g2.setColor(Color.BLUE);
+            } else {
+                g2.setColor(Color.RED);
+            }
 
-        g2.fillRect(Model.getInstance().playerX, Model.getInstance().playerY, size, size);
-
-
+            g2.fillRect(Model.getInstance().keyHList.get(i).player.posX, Model.getInstance().keyHList.get(i).player.posY, size, size);
+        }
 
     }
 }

@@ -5,13 +5,16 @@ import Model.Model;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import Model.Player;
+
 public class KeyHandler implements KeyListener {
 
     public boolean upPressed, downPressed, leftPressed, rightPressed;
+    public Player player;
 
     public KeyHandler() {
         Model.getInstance().addKeyHandler(this);
-        System.out.println("keyH criado");
+        player = new Player();
     }
 
     @Override
