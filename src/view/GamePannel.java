@@ -6,6 +6,7 @@ import Model.Model;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
+import Model.Cartas;
 
 public class GamePannel extends JPanel implements Runnable{
 
@@ -17,8 +18,8 @@ public class GamePannel extends JPanel implements Runnable{
     final int scale = 3;
 
     final int size = originalSize * scale;
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 12;
+    final int maxScreenCol = 30;
+    final int maxScreenRow = 20;
 
     final int screenWidth = size * maxScreenCol;
     final int screenHeight = size * maxScreenRow;
@@ -28,7 +29,7 @@ public class GamePannel extends JPanel implements Runnable{
 
     public GamePannel () {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.black);
+        this.setBackground(Color.darkGray);
         this.setDoubleBuffered(true);
         this.setFocusable(true);
         this.addKeyListener(keyH);
@@ -63,7 +64,7 @@ public class GamePannel extends JPanel implements Runnable{
                     remainingTime = 0;
                 }
                 Thread.sleep((long)remainingTime);
-                System.out.println("view" + " " + remainingTime);
+                //System.out.println("view" + " " + remainingTime);
                 nextPaintTime += paintInterval;
 
             } catch (InterruptedException e){
@@ -88,9 +89,33 @@ public class GamePannel extends JPanel implements Runnable{
             } else {
                 g2.setColor(Color.RED);
             }
-
-            g2.fillRect(Model.getInstance().keyHList.get(i).player.posX, Model.getInstance().keyHList.get(i).player.posY, size, size);
+            g2.fillRect(Model.getInstance().keyHList.get(i).player.posX, Model.getInstance().keyHList.get(i).player.posY, (size*4)+10, (size*3)+10);
         }
-
+        int x=size;
+        int y=size;
+        int i = 0;
+        for(Cartas c: Model.getInstance().posicaoCartas) {
+            if (i == 4) {
+                y+=size*6;
+                x=size;
+                i=0;
+            }
+            if(c.out == false) {
+                g2.setFont(new Font("Sans Serif", Font.BOLD, 25));
+                g2.setColor(Color.WHITE);
+                g2.drawString(c.conteudo,x,y+25);
+                g2.setColor(Color.black);
+                g2.fillRect(x,y,size*4,size*3);
+            }else{
+                g2.setColor(Color.WHITE);
+                g2.fillRect(x,y,size*4,size*3);
+            }
+            if(c.aberto) {
+                g2.setColor(Color.WHITE);
+                g2.drawString(c.conteudo,x,y+25);
+            }
+            i++;
+            x+=size*7;
+        }
     }
 }

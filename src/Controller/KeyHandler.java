@@ -13,7 +13,7 @@ public class KeyHandler implements KeyListener {
     public Player player;
 
     public KeyHandler() {
-        Model.getInstance().addKeyHandler(this);
+        Model.getInstance().keyHList.add(this);
         player = new Player();
     }
 
@@ -25,33 +25,41 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
         if(code == KeyEvent.VK_W) {
-            upPressed = true;
+            player.posY-=player.velocityY;
+            player.hovering -= 4;
+            System.out.println(player.hovering);
+            System.out.println(Model.getInstance().posicaoCartas.get(player.hovering).conteudo);
         }
         if(code == KeyEvent.VK_S) {
-            downPressed= true;
+            player.posY+=player.velocityY;
+            player.hovering+=4;
+            System.out.println(player.hovering);
+            System.out.println(Model.getInstance().posicaoCartas.get(player.hovering).conteudo);
         }
         if(code == KeyEvent.VK_A) {
-            leftPressed = true;
+            player.posX-=player.velocityX;
+            player.hovering-=1;
+            System.out.println(player.hovering);
+            System.out.println(Model.getInstance().posicaoCartas.get(player.hovering).conteudo);
         }
         if(code == KeyEvent.VK_D) {
-            rightPressed = true;
+            player.posX+=player.velocityX;
+            player.hovering+=1;
+            System.out.println(player.hovering);
+            System.out.println(Model.getInstance().posicaoCartas.get(player.hovering).conteudo);
+        }
+        if(code == KeyEvent.VK_E && !Model.getInstance().posicaoCartas.get(player.hovering).out) {
+            Model.getInstance().posicaoCartas.get(player.hovering).aberto=true;
+            player.viewing.add(Model.getInstance().posicaoCartas.get(player.hovering));
+            System.out.println(player.viewing);
+        }
+        if(code == KeyEvent.VK_E && !Model.getInstance().posicaoCartas.get(player.hovering).out){
+            Model.getInstance().posicaoCartas.get(player.hovering).aberto=true;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        int code = e.getKeyCode();
-        if(code == KeyEvent.VK_W) {
-            upPressed = false;
-        }
-        if(code == KeyEvent.VK_S) {
-            downPressed= false;
-        }
-        if(code == KeyEvent.VK_A) {
-            leftPressed = false;
-        }
-        if(code == KeyEvent.VK_D) {
-            rightPressed = false;
-        }
+
     }
 }

@@ -29,7 +29,7 @@ public class Main {
 
 
         GamePannel gamePannel2 = new GamePannel();
-        gamePannel2.FPS = 5;
+        gamePannel2.FPS = 144;
         window2.add(gamePannel2);
 
         window2.pack();
@@ -38,6 +38,7 @@ public class Main {
 
         window2.setLocationRelativeTo(null);
         window2.setVisible(true);
+
 
 
     }
