@@ -2,6 +2,9 @@ package Model;
 
 import Controller.KeyHandler;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class Cartas {
@@ -51,10 +54,11 @@ public class Cartas {
         return i;
     }
 
+
     public static Cartas gerarCartas() {
         head = new Cartas(null);
         HashMap<String, String> cartasPR = new HashMap<>();
-        cartasPR.put("pergunta 1", "resposta 1");
+        cartasPR.put("pergunta1", "resposta 1");
         cartasPR.put("pergunta 2", "resposta 2");
         cartasPR.put("pergunta 3", "resposta 3");
         cartasPR.put("pergunta 4", "resposta 4");

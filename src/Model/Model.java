@@ -14,7 +14,7 @@ public class Model implements Runnable {
     public Cartas head;
     public ArrayList<Cartas> posicaoCartas;
 
-
+    public int gameState = 0;
     final double pseudoFPS = 200;
 
     public ArrayList<KeyHandler> keyHList;
@@ -25,7 +25,8 @@ public class Model implements Runnable {
         modelThread = new Thread(this);
         modelThread.start();
         keyHList = new ArrayList<>();
-        head = Cartas.gerarCartas();
+        Cartas deck =  new Cartas(null);
+        head = deck.gerarCartas();
         map();
     }
 
@@ -98,32 +99,35 @@ public class Model implements Runnable {
 
 
     public void update() {
-        for(KeyHandler k:keyHList) {
-            if (k.player.viewing.size() ==2) {
-                if(k.player.viewing.getFirst().par == k.player.viewing.getLast()) {
-                    k.player.viewing.getFirst().out = true;
-                    k.player.viewing.getLast().out = true;
+        if (gameState == 1) {
+
+            for(KeyHandler k:keyHList) {
+                if (k.player.viewing.size() == 2) {
+                    if (k.player.viewing.getFirst().par == k.player.viewing.getLast()) {
+                        k.player.pontos++;
+                        k.player.viewing.getFirst().out = true;
+                        k.player.viewing.getLast().out = true;
 
 
-                    k.player.viewing.getFirst().aberto = false;
-                    k.player.viewing.remove(k.player.viewing.getFirst());
-                    k.player.viewing.getLast().aberto = false;
-                    k.player.viewing.remove(k.player.viewing.getLast());
-
-                    System.out.println("aaaa");
-                } else{
-                    try {
-                        Thread.sleep(300);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        k.player.viewing.getFirst().aberto = false;
+                        k.player.viewing.remove(k.player.viewing.getFirst());
+                        k.player.viewing.getLast().aberto = false;
+                        k.player.viewing.remove(k.player.viewing.getLast());
+                    } else {
+                        try {
+                            Thread.sleep(300);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        k.player.viewing.getFirst().aberto = false;
+                        k.player.viewing.remove(k.player.viewing.getFirst());
+                        k.player.viewing.getLast().aberto = false;
+                        k.player.viewing.remove(k.player.viewing.getLast());
                     }
-                    k.player.viewing.getFirst().aberto = false;
-                    k.player.viewing.remove(k.player.viewing.getFirst());
-                    k.player.viewing.getLast().aberto = false;
-                    k.player.viewing.remove(k.player.viewing.getLast());
                 }
-
             }
+        }else{
+
         }
     }
 }
